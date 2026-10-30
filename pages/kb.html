@@ -1,0 +1,9 @@
+fetch('/api/me', {credentials: 'same-origin'}).then(async r => {
+  if (!r.ok) return location.replace('/login');
+  const me = await r.json();
+  document.getElementById('hi').textContent = 'Вы вошли как ' + (me.nickname || me.email);
+});
+document.getElementById('out').addEventListener('click', async () => {
+  await fetch('/api/logout', {method: 'POST', credentials: 'same-origin'});
+  location.replace('/login');
+});

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0b0d">
+<title>Вход — База знаний</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/login.css?v=13"></head>
+<body>
+<main class="stage" id="stage">
+  <!-- Логотип и слоган -->
+  <div class="logo">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.5C10 5 6.5 4.5 3 5v13c3.5-.5 7 0 9 1.5 2-1.5 5.5-2 9-1.5V5c-3.5-.5-7 0-9 1.5Z"/><path d="M12 6.5v13"/></svg>
+    <span><span class="logo-name">База знаний</span><span class="logo-tag">Знания. Люди. Развитие.</span></span>
+  </div>
+  <div class="lamp">
+    <div class="glow"></div>
+    <div class="cable"></div>
+    <div class="shade"><span class="bulb"></span></div>
+    <div class="cone"></div>
+    <button class="pull" id="pull" type="button" aria-pressed="false" aria-label="Потянуть за шнурок, чтобы включить лампу">
+      <span class="line" id="line"></span>
+      <span class="handle"></span>
+    </button>
+    <div class="hint" id="hint">
+      <p class="hint-title">Включите свет<br><span>к знаниям</span></p>
+      <p class="hint-text" id="hintText">Потяните за шнурок, чтобы увидеть больше</p>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15M6 13.5l6 6 6-6"/></svg>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="card" id="card">
+      <header class="card-head">
+        <span class="mark" aria-hidden="true"></span>
+        <h1 class="brand">База знаний</h1>
+        <h2 id="title">Добро пожаловать!</h2>
+      </header>
+      <p class="sub" id="sub">Войдите в аккаунт, чтобы получить доступ к материалам.</p>
+      <p class="status" id="status" role="status"></p>
+
+    <!-- Вход (POST /api/login) -->
+      <form id="form" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <div class="inp"><span class="ico ico-mail" aria-hidden="true"></span><input id="email" name="email" type="email" inputmode="email" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="254" placeholder="example@domain.com" required aria-describedby="email-err"></div>
+        <p class="field-err" id="email-err"></p>
+      </div>
+      <div class="field">
+        <label for="password">Пароль</label>
+        <div class="inp pw"><span class="ico ico-lock" aria-hidden="true"></span><input id="password" name="password" type="password" autocomplete="current-password" maxlength="256" placeholder="Введите пароль" required aria-describedby="password-err"><button class="eye" type="button" data-for="password" aria-pressed="false" aria-label="Показать пароль" title="Показать пароль"></button></div>
+        <p class="field-err" id="password-err"></p>
+      </div>
+      <div class="row-end"><a href="#forgot">Забыли пароль?</a></div>
+      <p class="err" role="alert"></p>
+      <button class="go arrow" type="submit">Войти</button>
+      <p class="alt">Нет аккаунта? <a href="#register">Зарегистрироваться</a></p>
+      </form>
+
+    <!-- Регистрация (POST /api/register): никнейм, email, пароль, повтор пароля -->
+      <form id="formReg" hidden novalidate>
+      <div class="field">
+        <label for="reg-nick">Никнейм</label>
+        <div class="inp"><span class="ico ico-user" aria-hidden="true"></span><input id="reg-nick" name="reg-nick" type="text" autocomplete="nickname" autocapitalize="none" spellcheck="false" minlength="3" maxlength="24" placeholder="Например, ivan_petrov" required aria-describedby="reg-nick-err"></div>
+        <p class="field-err" id="reg-nick-err"></p>
+        <p class="hintline">3–24 символа: буквы, цифры, точка, _ и -</p>
+      </div>
+      <div class="field">
+        <label for="reg-email">Email</label>
+        <div class="inp"><span class="ico ico-mail" aria-hidden="true"></span><input id="reg-email" name="reg-email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="254" placeholder="example@domain.com" required aria-describedby="reg-email-err"></div>
+        <p class="field-err" id="reg-email-err"></p>
+      </div>
+      <div class="field">
+        <label for="reg-password">Пароль</label>
+        <div class="inp pw"><span class="ico ico-lock" aria-hidden="true"></span><input id="reg-password" name="reg-password" type="password" autocomplete="new-password" maxlength="256" placeholder="Придумайте пароль" required aria-describedby="reg-password-err"><button class="eye" type="button" data-for="reg-password" aria-pressed="false" aria-label="Показать пароль" title="Показать пароль"></button></div>
+        <p class="field-err" id="reg-password-err"></p>
+        <p class="hintline">Не короче 10 символов</p>
+      </div>
+      <div class="field">
+        <label for="reg-password2">Повторите пароль</label>
+        <div class="inp pw"><span class="ico ico-lock" aria-hidden="true"></span><input id="reg-password2" name="reg-password2" type="password" autocomplete="new-password" maxlength="256" placeholder="Введите пароль ещё раз" required aria-describedby="reg-password2-err"><button class="eye" type="button" data-for="reg-password2" aria-pressed="false" aria-label="Показать пароль" title="Показать пароль"></button></div>
+        <p class="field-err" id="reg-password2-err"></p>
+      </div>
+      <p class="err" role="alert"></p>
+      <button class="go arrow" type="submit">Создать аккаунт</button>
+      <p class="alt">Уже есть аккаунт? <a href="#login">Войти</a></p>
+      </form>
+
+    <!-- Забыли пароль (POST /api/forgot) -->
+      <form id="formForgot" hidden novalidate>
+      <div class="field">
+        <label for="fg-email">Email</label>
+        <div class="inp"><span class="ico ico-mail" aria-hidden="true"></span><input id="fg-email" name="fg-email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="254" placeholder="example@domain.com" required aria-describedby="fg-email-err"></div>
+        <p class="field-err" id="fg-email-err"></p>
+      </div>
+      <p class="err" role="alert"></p>
+      <button class="go arrow" type="submit">Отправить ссылку</button>
+      <p class="alt"><a href="#login">← Вернуться ко входу</a></p>
+      </form>
+
+    <!-- Новый пароль по ссылке из письма (POST /api/reset); токен берётся из адреса, а не из поля -->
+      <form id="formReset" hidden novalidate>
+      <div class="field">
+        <label for="rs-password">Новый пароль</label>
+        <div class="inp pw"><span class="ico ico-lock" aria-hidden="true"></span><input id="rs-password" name="rs-password" type="password" autocomplete="new-password" maxlength="256" placeholder="Придумайте пароль" required aria-describedby="rs-password-err"><button class="eye" type="button" data-for="rs-password" aria-pressed="false" aria-label="Показать пароль" title="Показать пароль"></button></div>
+        <p class="field-err" id="rs-password-err"></p>
+        <p class="hintline">Не короче 10 символов</p>
+      </div>
+      <p class="err" role="alert"></p>
+      <button class="go arrow" type="submit">Сохранить пароль</button>
+      </form>
+
+    <!-- Контакт поддержки; на экране регистрации скрывается скриптом -->
+      <div class="note" id="note">
+        <svg class="qm" width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="rgba(236,209,122,.08)"/><path d="M12.2 12.6a3.9 3.9 0 0 1 7.5 1.4c0 2.5-3.7 3.2-3.7 5.3"/><circle cx="16" cy="23" r=".6" fill="currentColor"/></svg>
+        <p>Нет доступа к аккаунту?<br><a href="mailto:fursov_ki1@outlook.com">Свяжитесь с поддержкой<span class="arr" aria-hidden="true"></span></a></p>
+      </div>
+    </div>
+  </div>
+  <noscript><p class="nojs">Для входа нужен включённый JavaScript.</p></noscript>
+</main>
+<script src="/static/login.js?v=13" defer></script>
+</body></html>

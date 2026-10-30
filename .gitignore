@@ -1,0 +1,19 @@
+
+# Секреты и локальные настройки — НИКОГДА не коммитить
+.env
+.env.*
+!.env.example
+ 
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+ 
+# Редакторы и система
+.idea/
+.vscode/
+.DS_Store
+*.log
